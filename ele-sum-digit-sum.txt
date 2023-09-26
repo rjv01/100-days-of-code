@@ -1,0 +1,28 @@
+class Solution {
+public:
+
+    int digitsum(int num){
+        int sum=0;
+        while(num!=0){
+            sum = sum+num%10;
+            num=num/10;
+        }
+        return sum;
+    }
+
+    int arsum(vector<int>& nums){
+        int sum = 0;
+        for(int i{0};i<nums.size();i++){
+            sum = sum + nums[i];
+        }
+        return sum;
+    }
+
+    int differenceOfSum(vector<int>& nums) {
+        int disum = 0;
+        for(int i{0};i<nums.size();i++){
+            disum = disum + digitsum(nums[i]);
+        }
+        return arsum(nums)-disum;
+    }
+};
