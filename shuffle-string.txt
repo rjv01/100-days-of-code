@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string restoreString(string s, vector<int>& indices) {
+
+        vector<pair<int,char>> mp;
+        string ans;
+        
+        for(auto i{0};i<indices.size();i++){
+           mp.emplace_back(indices[i],s[i]);
+        }
+        
+        // for(auto x:mp){
+        //     cout<<x.first<<" "<<x.second<<endl;
+        // }
+        
+        sort(mp.begin(),mp.end());
+        cout<<endl;
+        
+        for(auto x:mp){
+            ans += x.second;
+        }
+        return ans;
+    }
+};
