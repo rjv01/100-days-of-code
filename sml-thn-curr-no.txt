@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+
+        map<int,int> mp;
+        int n = nums.size();
+        vector<int> fnum=nums;
+        
+        sort(fnum.begin(),fnum.end());
+
+        for(int i{n-1};i>=0;i--){
+            mp[fnum[i]]=i;
+        }
+        for(int i{0};i<n;i++){
+            nums[i] = mp[nums[i]];
+        }
+        
+        return nums;
+    }
+
+    // ans is correct but order dosenot matched
+    // sort(v.begin(),v.end());
+    
+    // vector<int> ans;
+    // int left=0;
+    
+    // for(int i{0};i<v.size();i++){
+    //     int cnt{0};
+        
+    //     for(int j{left};j<i;j++){
+    //         if(v[i]>v[j]){
+    //             cnt++;
+    //         }
+    //     }
+    //     ans.push_back(cnt);
+    // }
+    // return ans;
+    
+    // O(n2)
+    /*vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        vector<int> arr;
+
+        for(int i{0};i<nums.size();i++){
+            int count{0};
+            
+            for(int j{0};j<nums.size();j++){
+                if(nums[i] > nums[j]){
+                    count++;
+                }
+            }
+        arr.push_back(count);
+        }
+        return arr;
+    }*/
+};
