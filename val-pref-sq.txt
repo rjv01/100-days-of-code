@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        //Method 1 Using Binary Search
+        if(num<0) return false;
+        
+        if(num == 0 or num == 1){
+            return true;
+        }
+        long long int f=1;
+        long long int l=num;
+        while(f<=l){
+            long long int mid = f + (l-f)/2;
+
+            if(mid*mid == num){
+                return true;
+            }
+            else if(mid * mid > num){
+                l=mid-1;
+            }
+            else {
+                f=mid+1;
+            }
+        }
+        return false;
+
+        // Approach 1 Using Brute Force
+        // if(num<0) return false;
+        
+        // if(num == 0 or num == 1){
+        //     return true;
+        // }
+        // bool flag=false;
+        // for(long long int i{1};i<num;i++){
+        //     if(i*i == num){
+        //         flag=true;
+        //         break;
+        //     }
+        //     else{
+        //         flag=false;
+        //     }
+        // }
+        // if(flag==true) return true;
+        // else return false;
+    }
+};
