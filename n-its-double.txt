@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+
+        // O(N logN )
+        int n=arr.size();
+        sort(arr.begin(), arr.end());
+        for(int i=0; i<n; i++){
+            int target=2*arr[i];
+            int low=0, high=arr.size()-1;
+            while(low<=high){
+                int mid=low+(high-low)/2;
+                if(arr[mid]==target && mid!=i) return true;
+                if(arr[mid]<target) low=mid+1;
+                else high=mid-1;
+            }
+        }
+        return false;
+        // O(N^2)
+        // for(int i{0};i<n-1;i++){
+        //     for(int j{i+1};j<n;j++){
+        //         if((arr[i]==2*arr[j]) or (arr[j]==2*arr[i])){
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+    }
+};
