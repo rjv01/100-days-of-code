@@ -1,0 +1,66 @@
+class TextEditor {
+    list<char> editor;
+    list<char>::iterator it;
+
+    string kleft(){
+        string ans = "";
+        auto i = it;
+        
+        int count = 10;
+        while(count>0 and i != editor.begin()){
+            --i;
+            --count;
+            ans += *i;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+public:
+    TextEditor() {
+        it = editor.begin();
+    }
+    
+    void addText(string text) {
+        for(auto i:text){
+            it = editor.insert(it,i);
+            it++;
+        }
+    }
+    
+    int deleteText(int k) {
+        int del{0};
+
+        while(it != editor.begin() and k>0){
+            it--;
+            k--;
+            del++;
+            it = editor.erase(it);
+        }
+        return del;
+    }
+    
+    string cursorLeft(int k) {
+        while(it != editor.begin() and k>0){
+            it--;
+            k--;
+        }
+        return kleft();
+    }
+    
+    string cursorRight(int k) {
+        while(it != editor.end() and k>0){
+            it++;
+            k--;
+        }
+        return kleft();
+    }
+};
+
+/**
+ * Your TextEditor object will be instantiated and called as such:
+ * TextEditor* obj = new TextEditor();
+ * obj->addText(text);
+ * int param_2 = obj->deleteText(k);
+ * string param_3 = obj->cursorLeft(k);
+ * string param_4 = obj->cursorRight(k);
+ */
