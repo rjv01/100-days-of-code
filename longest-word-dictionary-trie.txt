@@ -1,0 +1,119 @@
+class TrieNode{
+    public:
+        TrieNode *children[26];
+        bool isEnd;
+    TrieNode(){
+        isEnd = false;
+        for(int i{0};i<26;i++){
+            children[i] = nullptr;
+        }
+    }
+};
+
+class Trie{
+    public:
+        TrieNode *root = new TrieNode();
+
+        void insert(string key){
+            TrieNode *currNode = root;
+            int n = key.size();
+            for(int i{0};i<n;i++){
+                int index = key[i]-'a';
+                if(currNode->children[index] == nullptr){
+                    TrieNode *newNode = new TrieNode();
+                    currNode->children[index] = newNode;
+                }
+                currNode = currNode->children[index];
+            }
+            currNode->isEnd = true;
+        }
+
+        bool search(string key){
+            TrieNode *currNode = root;
+            int n = key.size();
+            for(int i{0};i<n;i++){
+                int index = key[i]-'a';
+                if(currNode->children[index] == nullptr)
+                    return false;
+                currNode = currNode->children[index];
+            }
+            if(currNode != nullptr and currNode->isEnd == true)
+                return true;
+            return false;
+        }
+        bool isVaild(string key){
+            TrieNode *currNode = root;
+            for(auto ch:key){
+                int index = ch-'a';
+                currNode = currNode->children[index];
+                if(!currNode->isEnd)
+                    return false;
+            }
+            return true;
+        }
+};
+
+class Solution {
+public:
+
+    TrieNode *root;
+
+    void addWord(string word) {
+        TrieNode *curr = root;
+        for(auto ch: word) {
+            int index = ch - 'a';
+            if(curr->children[index] == NULL) {
+                curr->children[index] = new TrieNode();
+            }
+            curr = curr->children[index];
+        }
+        curr->isEnd = true;
+    }
+
+    bool search(string word) {
+        TrieNode *curr = root;
+        for(auto ch: word) {
+            int index = ch - 'a';
+            if(curr->children[index] == NULL) {
+                return false;
+            }
+            curr = curr->children[index];
+        }
+        if(curr != NULL and curr->isEnd == true) {
+            return true;
+        }  
+        return false;
+    }
+
+    bool isValid(string word) {
+        TrieNode *curr = root;
+        for(auto ch: word) {
+            int index = ch - 'a';
+            curr = curr->children[index];
+            if(!curr->isEnd) {
+                return false;
+            }
+        }
+        return true;
+    }
+    string longestWord(vector<string>& words) {
+        root = new TrieNode();
+
+        for(auto word: words) {
+            addWord(word);
+        }
+        string ans = "";
+        for(auto word: words) {
+            if(isValid(word)) {
+                if(word.size() > ans.size()) {
+                    ans = word;
+                } else if(word.size() == ans.size()) {
+                    ans = min(ans, word);
+                }
+            }
+        }
+
+        return ans;
+        
+    }
+};
