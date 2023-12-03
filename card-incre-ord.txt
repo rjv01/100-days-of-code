@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+       int n = deck.size();
+       vector<int> ans(n,0); //vector of deck.size(),initilizing with 0
+       queue<int> q;
+       sort(deck.begin(),deck.end());
+
+       for(int i{0};i<n;i++){
+           q.push(i); //put index in queue 
+       } 
+
+       for(int i{0};i<n;i++){
+           int top_ele = q.front();// get the top ele
+           q.pop();                // pop top ele
+           ans[top_ele] = deck[i]; // in ans at pos top_ele put deck ele
+           if(q.size()>0){
+               q.push(q.front()); //next top ele push back to queue
+               q.pop();
+           }
+       }
+       return ans;
+    }
+};
