@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findMax(vector<vector<int>> &grid,int istart,int jstart){
+        int temp = INT_MIN;
+        for(int i{istart};i<istart+3;i++){
+            for(int j{jstart};j<jstart+3;j++){
+                temp = max(temp,grid[i][j]);
+            }
+        }
+        return temp;
+    }
+    vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
+        int size = grid.size();
+        vector<vector<int>> maxLocal(size-2,vector<int>(size-2,0));
+
+        for(int i{0};i<size-2;i++){
+            for(int j{0};j<size-2;j++){
+                maxLocal[i][j] = findMax(grid,i,j);
+            }
+        }
+        return maxLocal;
+    }
+};
