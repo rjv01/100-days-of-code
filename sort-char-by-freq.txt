@@ -1,0 +1,61 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char,int> mp;
+        for(auto x:s){
+            mp[x]++;
+        }
+        priority_queue<pair<int,char>> pq;
+        for(auto x:mp){
+            pq.push({
+                x.second,
+                x.first
+            });
+        }
+        string ans{""};
+        while(!pq.empty()){
+            int n = pq.top().first; // freq. of a particular element
+            while(n--){ // pushing into str till it's freq count
+                ans+=pq.top().second; // adding it into string
+            }
+            pq.pop(); // 
+        }
+        return ans;
+    }
+};
+/*
+class Solution {
+public:
+    bool static compare(pair<char,int> &n,pair<char,int> &m){
+        return n.second > m.second;
+    }
+    string frequencySort(string s) {
+
+        //freq hash map
+        unordered_map<char,int> mp;
+        for(auto x:s){
+            mp[x]++;
+        }
+
+        //pair of char and freq => (e,2);
+        vector<pair<char,int>> ans;
+        for(auto x:mp){
+            ans.push_back(x);
+        }
+
+        //sorting on basis of int x.second;
+        sort(ans.begin(),ans.end(),compare);
+
+        string str{""};
+        for(auto x:ans){
+            int count = x.second;
+            while(count>0){
+                str.push_back(x.first);
+                count--;
+            }
+        }
+
+        return str;
+    }
+};
+*/
