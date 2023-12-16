@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int row , col;
+    int result;
+    int nonObsctacles;
+    vector<vector<int>> directions{{1,0},{-1,0},{0,1},{0,-1}};
+
+    void backtrack(vector<vector<int>> grid,int count,int i,int j){
+        if(i<0 or i>= row or j<0 or j>=col or grid[i][j] == -1)
+            return ;
+        if(grid[i][j] == 2){
+            if(count == nonObsctacles)
+                result++;
+            return ;
+        }
+        grid[i][j] = -1;
+
+        for(vector<int> dir: directions){
+            int new_i = i+dir[0];
+            int new_j = j+dir[1];
+            backtrack(grid,count+1,new_i,new_j);
+        }
+        grid[i][j] = 0;
+    }
+
+    int uniquePathsIII(vector<vector<int>>& grid) {
+       row = grid.size();
+       col = grid[0].size();
+       result = 0;
+       nonObsctacles = 0;
+       int start_x = 0,start_y = 0;
+
+       for(int i{0};i<row;i++){
+           for(int j{0};j<col;j++){
+               if(grid[i][j] == 0)
+                    nonObsctacles++;
+                
+               else if(grid[i][j] == 1){
+                   nonObsctacles++;
+                   start_x = i,start_y = j;
+               }
+            }
+        }
+        int count{0};
+        backtrack(grid,count,start_x,start_y);
+
+        return result;
+    }
+};
