@@ -1,0 +1,36 @@
+class Solution {
+public:
+    unordered_map<int,vector<TreeNode*>> mp;
+    vector<TreeNode*> fbt(int n){
+        vector<TreeNode*> result;
+        if(n%2 == 0)
+            return result;
+        if(n == 1){
+            TreeNode *root = new TreeNode(0);
+            result.push_back(root);
+            return result;
+        }
+        if(mp.find(n)!=mp.end()){
+            return mp[n];
+        }
+        else{
+            for(int i{1};i<n;i += 2){
+                vector<TreeNode*> allLeftNode = fbt(i);
+                vector<TreeNode*> allRightNode = fbt(n-i-1);
+
+                for(auto &l:allLeftNode){
+                    for(auto &r:allRightNode){
+                        TreeNode *root = new TreeNode(0);
+                        root->left = l;
+                        root->right = r;
+                        result.push_back(root);
+                    }
+                }
+            }
+        }
+        return mp[n] = result;
+    }
+    vector<TreeNode*> allPossibleFBT(int n) {
+        return fbt(n);
+    }
+};
