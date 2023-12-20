@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int getMaximumGenerated(int n) {
+
+        if (n<2) {
+            return n;
+        }
+
+        int maxi = INT_MIN;
+        vector<int> v(n+1,0);
+        v[0] = 0;
+        v[1] = 1;
+
+        for(int i{2};i<=n;i++){
+            int index = i/2;
+            if( i%2 == 0)
+                v[i] = v[index];
+            else if( i%2 != 0)
+                v[i] = v[index] + v[index + 1];
+        }
+        
+        for(auto x:v){
+            if(x > maxi)
+                maxi = x;   
+        }
+        
+        return maxi;
+    }
+};
