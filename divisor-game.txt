@@ -1,0 +1,29 @@
+// class Solution {
+// public:
+//     vector<int> dp;
+//     bool sol(int n){
+//         if(n == 1)
+//             return false;
+//         if(dp[n] != -1)
+//             return dp[n];
+//         bool a = false;
+//         for(int i{1};i<n;i++){
+//             if(n%i == 0)
+//                 a |= !sol(n-i);
+//         }
+//         return dp[n] = a;
+//     }
+//     bool divisorGame(int n) {
+//         dp.resize(n+1,-1);
+//         return sol(n);
+//     }
+// };
+class Solution {
+public:
+    bool divisorGame(int n) {
+        if(n%2 == 0)
+            return true;
+        
+        return false;
+    }
+};
