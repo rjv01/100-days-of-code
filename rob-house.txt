@@ -1,0 +1,41 @@
+class Solution {
+public:
+    //dp
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> t(n+1,0);
+
+        t[0] = 0;
+        t[1] = nums[0];
+        
+        for(int i{2};i<=n;i++){
+            int steal = nums[i-1] + t[i-2];
+            int skip  = t[i-1];
+            t[i] = max(steal,skip);
+        }
+        return t[n];
+    }
+};
+/* recurrsion and memo
+class Solution {
+public:
+    int memo[101];
+    int sol(vector<int> &nums,int index,int n){
+        if(index >= n)
+            return 0;
+
+        if(memo[index] != -1)
+            return memo[index];
+        
+        int steal = nums[index] + sol(nums,index+2,n);
+        int skip = sol(nums,index+1,n);
+
+        return memo[index] = max(steal,skip);
+    }
+    int rob(vector<int>& nums) {
+        memset(memo,-1,sizeof(memo));
+        int n = nums.size();
+        return sol(nums,0,n);
+    }
+};
+*/
