@@ -1,0 +1,31 @@
+class Solution {
+public:
+    typedef long long int ll;
+    ll t[1000001][2];
+    int n;
+
+    ll sol(int index,vector<int> &nums,bool flag){
+        if(index >= n)
+            return 0;
+
+        if(t[index][flag] != -1)
+            return t[index][flag];
+
+        ll skip = sol(index+1,nums,flag);
+        ll val = nums[index];
+        
+        if(flag == false){
+            val = -val;
+        }
+
+        ll take = sol(index+1,nums,!flag) + val;
+        
+        return t[index][flag] = max(take,skip);
+    }
+    long long maxAlternatingSum(vector<int>& nums) {
+        memset(t,-1,sizeof(t));
+        n = nums.size();
+        return sol(0,nums,true);
+
+    }
+};
