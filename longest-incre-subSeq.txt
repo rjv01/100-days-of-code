@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int n;
+    int dp[2501][2501];
+    int lis(vector<int>& nums, int prev, int curr) {
+       if(curr == n)
+           return 0;
+        
+        if(prev != -1 && dp[prev][curr] != -1)
+            return dp[prev][curr];
+        
+        int taken = 0;
+        if(prev == -1 || nums[curr] > nums[prev])
+            taken = 1 + lis(nums, curr, curr+1);
+        
+        int skip = lis(nums, prev, curr+1);
+        
+        if(prev != -1)
+            dp[prev][curr] =  max(taken, skip);
+        
+        return max(taken, skip);
+            
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        memset(dp, -1, sizeof(dp));
+        n = nums.size();
+        return lis(nums, -1, 0);
+    }
+};
